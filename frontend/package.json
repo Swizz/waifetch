@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "nuekit": "^2.0.0-beta.2"
+  }
+}

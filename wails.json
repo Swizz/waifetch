@@ -2,10 +2,11 @@
   "$schema": "https://wails.io/schemas/config.v2.json",
   "name": "waifetch",
   "outputfilename": "waifetch",
-  "frontend:install": "npm install",
-  "frontend:build": "npm run build",
-  "frontend:dev:watcher": "npm run dev",
-  "frontend:dev:serverUrl": "auto",
+  "frontend:install": "bun install --production",
+  "frontend:build": "bun nue build --silent",
+  "frontend:dev:watcher": "bun nue dev --silent",
+  "frontend:dev:serverUrl": "http://localhost:4000",
+  "assetdir": "frontend/.dist",
   "author": {
     "name": "Swizz",
     "email": "Swizz@users.noreply.github.com"

@@ -1,0 +1,26 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "dependencies": {
+        "nuekit": "^2.0.0-beta.2",
+      },
+    },
+  },
+  "packages": {
+    "nue-edgeserver": ["nue-edgeserver@0.1.0", "", {}, "sha512-4S//bbf7xFPwJvvPSpBr8y1ro/yyPdTpWWLP06/EZx19LWJAkW1NfQYr5Ih5e+WzQFT3wRZCWBeBz1TF/OFdpQ=="],
+
+    "nue-glow": ["nue-glow@0.2.5", "", {}, "sha512-yHGMK57ZTp/7IEz74esi4dWnvXVm/e3UKxOkoKdWA6SB79jCJHECE66S8YSzOpcZf3jMp5w7DAoXHIoVil+Chw=="],
+
+    "nuedom": ["nuedom@0.1.0", "", {}, "sha512-ky1bjGUJJizeW87Uo3PPjEIQ0T4hR00OrvNFliI0w0p1dqEMLHmmfqeZ2Sp5BIfQS81/NJNXEWnAv7unF3uL8g=="],
+
+    "nuekit": ["nuekit@2.0.0-beta.2", "", { "dependencies": { "nue-edgeserver": "^0.1.0", "nue-glow": "^0.2.0", "nuedom": "^0.1.0", "nuemark": "^0.7.0", "nuestate": "^0.1.0", "nueyaml": "^0.1.0" }, "bin": { "nue": "src/cli.js" } }, "sha512-Vq5U5iEf/0VJU64H2wjI7fdE97CwoSUczTmo6CFwVAttW46m46Wjf3u5fOaBa+yyNXV2eJ+68sWMVHGAG6P7PA=="],
+
+    "nuemark": ["nuemark@0.7.0", "", { "dependencies": { "nue-glow": "^0.2.0", "nueyaml": "^0.1.0" } }, "sha512-crEe6Fv6oIu8cIHdtDBNtYFb+g6lTl0LUr9eJQjZyUT2NzWqa+kuHVAs3tB5aI71+My1x0cQl2CnP8ya9f1ELA=="],
+
+    "nuestate": ["nuestate@0.1.1", "", {}, "sha512-1UChgrvZ1R2gzqw0FUDKC8tTH6sOlciUMzJ/0JFYOrtqVJYgH2X07fM6Dr+OsUhiE7bDylHQcJPkwqmFUTK5vQ=="],
+
+    "nueyaml": ["nueyaml@0.1.0", "", {}, "sha512-aRnM508w0jbkl415+oQrLNxU1u+E24zet0R1k40aV75jPuQKMZfIVW6eIk9i7yZ3NhgV+eIhCSsM30I09q6uvQ=="],
+  }
+}
