@@ -11,9 +11,9 @@ import (
 var assets embed.FS
 
 func main() {
-	app := NewApp()
+	var app *App = &App{}
 
-	err := wails.Run(&options.App{
+	var err error = wails.Run(&options.App{
 		Title:  "waifetch",
 		Width:  1024,
 		Height: 768,
