@@ -7,6 +7,7 @@
   "frontend:dev:watcher": "bun nue dev --silent",
   "frontend:dev:serverUrl": "http://localhost:4000",
   "assetdir": "frontend/.dist",
+  "wailsjsdir": "frontend/@wails",
   "author": {
     "name": "Swizz",
     "email": "Swizz@users.noreply.github.com"
