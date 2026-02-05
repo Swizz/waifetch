@@ -4,6 +4,7 @@ go 1.25
 
 require (
 	github.com/shirou/gopsutil/v4 v4.26.1
+	github.com/thiagokokada/dark-mode-go v0.0.2
 	github.com/wailsapp/wails/v2 v2.11.0
 )
 

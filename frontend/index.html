@@ -1,17 +1,101 @@
 <!doctype dhtml>
 
-<script>
-  import { state } from 'state'
-</script>
-
 <body>
-  <main>
-    <h1>It works !</h1>
+  <main class="container-fluid gx-5">
+    <div class="row g-5 h-100 align-items-center">
+      <div class="col h-100 bg-body-secondary d-flex justify-content-center">
+        <img class="align-self-center specific-h-500" src="{ platformImg(os, platform) }">
+      </div>
+      <div class="col">
+        <div class="card font-monospace">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <label class="fw-bolder">User:</label>
+              <span class="text-capitalize">{ user }</span>@<span>{ hostname }</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">OS:</label>
+              <span class="text-capitalize">{ platform }</span>
+              <span class="text-capitalize">{ os }</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">Kernel:</label>
+              <span>{ kernel }</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">Uptime:</label>
+              <span>{ fmtUptime(uptime) }</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">CPU:</label>
+              <span>{ cpu }</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">Disk:</label>
+              <span>{ fmtBytes(disk.used) } / { fmtBytes(disk.total) } ({ fmtPercent(disk.used / disk.total) })</span>
+            </li>
+            <li class="list-group-item">
+              <label class="fw-bolder">RAM:</label>
+              <span>{ fmtBytes(mem.used) } / { fmtBytes(mem.total) } ({ fmtPercent(mem.used / mem.total) })</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script>
+    const { GetSystemInfo } = window.go.main.App
+
+    fmtUptime(uptime) {
+      return new Intl.DurationFormat("en", { style: "narrow" }).format({
+        days: Math.floor(uptime / 60 / 60 / 24),
+        hours: Math.floor(uptime / 60 / 60) % 24,
+        minutes: Math.floor(uptime / 60) % 60,
+        seconds: uptime % 60
+      })
+    }
+
+    fmtBytes(bytes) {
+      const units = ['byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte']
+      const n = Math.floor(Math.log(bytes) / Math.log(1024))
+      return new Intl.NumberFormat("en", {
+        style: "unit",
+        unit: units[n],
+        unitDisplay: "narrow",
+        maximumFractionDigits: 2
+      }).format(bytes / Math.pow(1024, n))
+    }
+
+    fmtPercent(value) {
+      return new Intl.NumberFormat("en", {
+        style: "percent",
+        unitDisplay: "narrow",
+        maximumFractionDigits: 0
+      }).format(value)
+    }
+
+    platformImg(os, platform, path = "https://cdn.jsdelivr.net/npm/@loganmarchione/homelab-svg-assets@latest/assets/{name}.svg") {
+      if (os == "linux") {
+        if (platform == "arch") return path.replace("{name}", platform + os)
+        if (platform == "ubuntu") return path.replace("{name}", "canonical" + platform)
+      }
+
+      if (os == "windows") {
+        const match = new RegExp(/windows +([0-9]+)/i).exec(platform)
+        if(match) return path.replace("{name}", os + match[1])
+      }
+
+      return path.replace("{name}", platform)
+    }
+
     mounted() {
-      state.init()
+      this.root.parentElement.setAttribute("theme", "elegant")
+
+      GetSystemInfo().then(info => {
+        this.root.parentElement.setAttribute("mode", info.dark ? "dark" : "light")
+        this.update(info)
+      })
     }
   </script>
 </body>

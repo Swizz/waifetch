@@ -8,6 +8,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+//go:embed all:frontend/.dist
 var assets embed.FS
 
 func main() {
@@ -15,8 +16,8 @@ func main() {
 
 	var err error = wails.Run(&options.App{
 		Title:  "waifetch",
-		Width:  1024,
-		Height: 768,
+		Width:  1286,
+		Height: 728,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
