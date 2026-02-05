@@ -75,7 +75,7 @@
       }).format(value)
     }
 
-    platformImg(os, platform, path = "https://cdn.jsdelivr.net/npm/@loganmarchione/homelab-svg-assets@latest/assets/{name}.svg") {
+    platformImg(os, platform, path = "/@homelab-svg/assets/{name}.svg") {
       if (os == "linux") {
         if (platform == "arch") return path.replace("{name}", platform + os)
         if (platform == "ubuntu") return path.replace("{name}", "canonical" + platform)

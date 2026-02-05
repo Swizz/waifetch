@@ -16,7 +16,7 @@ func main() {
 
 	var err error = wails.Run(&options.App{
 		Title:  "waifetch",
-		Width:  1286,
+		Width:  1287,
 		Height: 728,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
