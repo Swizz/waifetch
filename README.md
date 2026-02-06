@@ -4,7 +4,7 @@
 
 <img src="./preview.png" alt="My own system preview" title="My own system preview" width="95%">
 
-### Displays system informations in a GUI interface,
+### Displays system informations in a GUI application,
 
 #### similar to the popular Linux tool [`screenFetch`](https://github.com/KittyKatt/screenFetch).
 
