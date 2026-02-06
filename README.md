@@ -2,9 +2,11 @@
 
 # Waifetch
 
-<img src="./preview.png" alt="My own system preview" title="My own system preview" width="55%">
+<img src="./preview.png" alt="My own system preview" title="My own system preview" width="95%">
 
-### Displays system informations in a GUI interface, similar to the popular Linux tool [`screenFetch`](https://github.com/KittyKatt/screenFetch).
+### Displays system informations in a GUI interface,
+
+#### similar to the popular Linux tool [`screenFetch`](https://github.com/KittyKatt/screenFetch).
 
 </section>
 
@@ -50,14 +52,7 @@ for display. The `frontend/` folder contains the NueJS-based user interface.
    go mod download
    ```
 
-2. Install frontend dependencies:
-   ```bash
-   cd frontend
-   bun install
-   cd ..
-   ```
-
-3. Run the application:
+2. Run the application:
    ```bash
    wails dev
    ```
