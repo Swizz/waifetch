@@ -1,19 +1,81 @@
-# README
+<section align="center">
 
-## About
+# Waifetch
 
-This is the official Wails Vanilla template.
+<img src="./preview.png" alt="My own system preview" title="My own system preview" width="55%">
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+### Displays system informations in a GUI interface, similar to the popular Linux tool [`screenFetch`](https://github.com/KittyKatt/screenFetch).
 
-## Live Development
+</section>
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+## Features
+
+- Displays system information including:
+  - Username and hostname
+  - Operating system details
+  - Platform and kernel version
+  - CPU information
+  - Disk usage statistics
+  - Memory usage statistics
+  - Dark mode detection
+
+## Tech Stack
+
+- [`Go`](https://golang.org/) - The Go programming language
+- [`Wails`](https://wails.io/) - Build desktop applications using Go & Web
+  Technologies
+- [`NueJS`](https://nuejs.org/) - Fastest way to build modern websites
+- [`Halfmoon`](https://gethalfmoon.com) - Highly customizable Bootstrap
+  replacement
+- [`gopsutil`](https://github.com/shirou/gopsutil) - Psutils for Golang
+
+## Project Structure
+
+This project is a simple demonstration with a focused aim. The main application
+logic is contained in `app.go`, which collects and formats system information
+for display. The `frontend/` folder contains the NueJS-based user interface.
+
+## Prerequisites
+
+- Go 1.19 or higher
+- Bun 1.2 or higher (required for NueJS - despite its name, NueJS works only
+  with Bun)
+- Wails CLI (can be installed with
+  `go install github.com/wailsapp/wails/v2/cmd/wails@latest`)
+
+### Installation
+
+1. Install backend dependencies:
+   ```bash
+   go mod download
+   ```
+
+2. Install frontend dependencies:
+   ```bash
+   cd frontend
+   bun install
+   cd ..
+   ```
+
+3. Run the application:
+   ```bash
+   wails dev
+   ```
 
 ## Building
 
-To build a redistributable, production mode package, use `wails build`.
+To build the application for your current platform:
+
+```bash
+wails build
+```
+
+For cross-platform builds, see the
+[Wails documentation](https://wails.io/docs/next/reference/building).
+
+## License
+
+This project is licensed under the MIT License - see the
+[LICENSE.md](LICENSE.md) file for details.
+
+Inspired by [`screenFetch`](https://github.com/KittyKatt/screenFetch)
