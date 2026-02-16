@@ -1,10 +1,9 @@
 {
   "name": "waifetch",
   "outputfilename": "waifetch",
-  "frontend:install": "deno install",
+  "frontend:install": "deno cache ./frontend/config.ts",
   "frontend:build": "deno task build",
-  "frontend:dev:watcher": "deno task serve",
-  "frontend:dev:serverUrl": "http://localhost:3000",
+  "frontend:dev:watcher": "deno task watch",
   "assetdir": "frontend/dist",
   "author": {
     "name": "Swizz",

@@ -1,7 +1,7 @@
 {
   "imports": {
     "lume/": "https://deno.land/x/lume@v3.2.1/",
-    "sprinkle/": "https://deno.land/x/sprinkle@1.1.1/",
+    "sprinkle/": "https://deno.land/x/sprinkle@v1.1.3/",
     "sprae": "https://esm.sh/sprae@v12.4.5"
   },
   "unstable": [
@@ -11,7 +11,8 @@
   "tasks": {
     "lume": "deno run -P=lume lume/cli.ts",
     "build": "deno task lume --config=./_config.ts",
-    "serve": "deno task lume --serve --config=./_config.ts"
+    "serve": "deno task lume --serve --config=./_config.ts",
+    "watch": "deno task lume --watch --config=./_config.ts"
   },
   "permissions": {
     "lume": {

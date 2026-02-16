@@ -1,4 +1,5 @@
-import { sprae } from "sprae"
+import { sprae, store, effect } from "sprae"
+import { GetSystemInfo } from "./wailsjs/go/main/App.js"
 
 interface SystemData {
   user: string
@@ -78,4 +79,10 @@ const formatter: DataFormatter = {
   }
 }
 
-export default sprae(document.body, { ...emptyState, ...formatter })
+const state: SystemData & DataFormatter = store({ ...emptyState, ...formatter })
+
+effect(() => {
+  GetSystemInfo().then((systemData: SystemData) => Object.assign(state, systemData))
+})
+
+export default sprae(document.body, state)
