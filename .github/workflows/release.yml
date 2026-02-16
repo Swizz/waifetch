@@ -7,9 +7,6 @@ on:
     tags:
       - '*'
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build:
     strategy:
@@ -41,6 +38,8 @@ jobs:
       - name: Build
         uses: dAppServer/wails-build-action@main
         id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           build-name: 'waifetch'
           build-platform: ${{ matrix.build.platform }}
