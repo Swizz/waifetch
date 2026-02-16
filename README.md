@@ -26,7 +26,8 @@
 - [`Go`](https://golang.org/) - The Go programming language
 - [`Wails`](https://wails.io/) - Build desktop applications using Go & Web
   Technologies
-- [`NueJS`](https://nuejs.org/) - Fastest way to build modern websites
+- [`Sprinkle`](https://deno.land/x/sprinkle) - Full featured
+  [Spræ](https://dy.github.io/sprae) engine for [Lume](https://lume.land/)
 - [`Halfmoon`](https://gethalfmoon.com) - Highly customizable Bootstrap
   replacement
 - [`gopsutil`](https://github.com/shirou/gopsutil) - Psutils for Golang
