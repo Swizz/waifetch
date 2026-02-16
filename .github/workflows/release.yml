@@ -29,12 +29,9 @@ jobs:
           submodules: recursive
 
       - name: Set-up
-        uses: oven-sh/setup-bun@v2
+        uses: denoland/setup-deno@v2
         with:
-          bun-version: 1.2.4
-
-      - name: Fix Folder
-        run: mkdir frontend/.dist && touch frontend/.dist/.gitkeep
+          deno-version: v2.6.x
 
       - name: Build
         uses: dAppServer/wails-build-action@main
