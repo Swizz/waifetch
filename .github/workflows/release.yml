@@ -42,6 +42,6 @@ jobs:
           build-name: 'waifetch'
           build-platform: ${{ matrix.build.platform }}
           build: true
-          package: false
+          package: true
           go-version: '1.25'
 
