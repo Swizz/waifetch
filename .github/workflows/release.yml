@@ -39,7 +39,7 @@ jobs:
         uses: dAppServer/wails-build-action@main
         id: build
         with:
-          build-name: 'waifetch'
+          build-name: 'waifetch-${{ matrix.build.name }}'
           build-platform: ${{ matrix.build.platform }}
           build: true
           package: true
