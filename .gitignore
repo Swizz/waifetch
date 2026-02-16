@@ -1,5 +1,4 @@
-.vscode/
 build/bin/
 node_modules/
-frontend/.dist/
-frontend/@wails/
+frontend/dist/
+frontend/wails/

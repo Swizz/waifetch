@@ -1,13 +1,11 @@
 {
-  "$schema": "https://wails.io/schemas/config.v2.json",
   "name": "waifetch",
   "outputfilename": "waifetch",
-  "frontend:install": "bun install --production",
-  "frontend:build": "bun nue build --silent",
-  "frontend:dev:watcher": "bun nue dev --silent",
-  "frontend:dev:serverUrl": "http://localhost:4000",
-  "assetdir": "frontend/.dist",
-  "wailsjsdir": "frontend/@wails",
+  "frontend:install": "deno install",
+  "frontend:build": "deno task build",
+  "frontend:dev:watcher": "deno task serve",
+  "frontend:dev:serverUrl": "http://localhost:3000",
+  "assetdir": "frontend/dist",
   "author": {
     "name": "Swizz",
     "email": "Swizz@users.noreply.github.com"
