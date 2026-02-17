@@ -1,42 +1,54 @@
 <main class="container-fluid gx-5">
-  <div class="row g-5 h-100 align-items-center">
-    <div class="col h-100 bg-body-secondary d-flex justify-content-center">
-      <img class="align-self-center specific-h-500" :src="(os || platform) && _platformImg(os, platform)" :alt="(os || platform) && `${platform} ${os}`">
-    </div>
-    <div class="col">
-      <div class="card font-monospace">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <label class="fw-bolder">User:</label>
-            <span class="text-capitalize" :text="user">{ user }</span>@<span :text="hostname">{ hostname }</span>
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">OS:</label>
-            <span class="text-capitalize" :text="plateform">{ platform }</span>
-            <span class="text-capitalize" :text="os">{ os }</span>
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">Kernel:</label>
-            <span :text="kernel">{ kernel }</span>
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">Uptime:</label>
-            <span :text="_fmtUptime(uptime)">{ uptime }</span>
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">CPU:</label>
-            <span :text="cpu">{ cpu }</span>
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">Disk:</label>
-            <span :text="_fmtBytes(disk.used)">{ disk.used }</span>&nbsp;/&nbsp; <span :text="_fmtBytes(disk.total)">{ disk.total }</span> (<span :text="_fmtPercent(disk.used / disk.total)">{ disk.used / disk.total }</span>)
-          </li>
-          <li class="list-group-item">
-            <label class="fw-bolder">RAM:</label>
-            <span :text="_fmtBytes(mem.used)">{ mem.used }</span>&nbsp;/&nbsp; <span :text="_fmtBytes(mem.total)">{ mem.total }</span> (<span :text="_fmtPercent(mem.used / mem.total)">{ mem.used / mem.total }</span>)
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+	<div class="row g-5 h-100 align-items-center">
+		<div class="col h-100 bg-body-secondary d-flex justify-content-center">
+			<img
+				class="align-self-center specific-h-500"
+				:src="(os || platform) && _platformImg(os, platform)"
+				:alt="(os || platform) && `${platform} ${os}`"
+			>
+		</div>
+		<div class="col">
+			<div class="card font-monospace">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<label class="fw-bolder">User:</label>
+						<span class="text-capitalize" :text="user">{ user }</span>@<span
+							:text="hostname"
+						>{ hostname }</span>
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">OS:</label>
+						<span class="text-capitalize" :text="plateform">{ platform }</span>
+						<span class="text-capitalize" :text="os">{ os }</span>
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">Kernel:</label>
+						<span :text="kernel">{ kernel }</span>
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">Uptime:</label>
+						<span :text="_fmtUptime(uptime)">{ uptime }</span>
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">CPU:</label>
+						<span :text="cpu">{ cpu }</span>
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">Disk:</label>
+						<span :text="_fmtBytes(disk.used)">{ disk.used }</span>&nbsp;/&nbsp;
+						<span :text="_fmtBytes(disk.total)">{ disk.total }</span> (<span
+							:text="_fmtPercent(disk.used / disk.total)"
+						>{ disk.used / disk.total }</span>)
+					</li>
+					<li class="list-group-item">
+						<label class="fw-bolder">RAM:</label>
+						<span :text="_fmtBytes(mem.used)">{ mem.used }</span>&nbsp;/&nbsp;
+						<span :text="_fmtBytes(mem.total)">{ mem.total }</span> (<span
+							:text="_fmtPercent(mem.used / mem.total)"
+						>{ mem.used / mem.total }</span>)
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </main>

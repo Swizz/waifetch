@@ -2,9 +2,9 @@
 @import "https://esm.sh/halfmoon@2.0.2/css/cores/halfmoon.elegant.css";
 
 *, *:before, *:after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html, body, main {
-  height: 100%;
+	height: 100%;
 }
