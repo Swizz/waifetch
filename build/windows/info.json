@@ -1,10 +1,10 @@
 {
 	"fixed": {
-		"file_version": "1.1.0"
+		"file_version": "{{.VERSION}}"
 	},
 	"info": {
 		"0409": {
-			"ProductVersion": "1.1.0",
+			"ProductVersion": "{{.VERSION}}",
 			"CompanyName": "Swizz",
 			"FileDescription": "Displays system informations in a GUI application",
 			"LegalCopyright": "(c) 2026-Present Swizz",

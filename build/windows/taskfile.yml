@@ -16,13 +16,16 @@ tasks:
             ref: .DEV
       - task: generate:syso
     cmds:
-      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch.exe'
+      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch-{{.VERSION}}-{{.GOARCH}}.exe'
     vars:
       BUILD_FLAGS: '{{if eq .DEV "true"}}-buildvcs=false -gcflags=all="-l"{{else}}-tags production -trimpath -buildvcs=false -ldflags="-w -s -H windowsgui"{{end}}'
+      GOARCH: amd64
+      VERSION:
+        sh: git describe --tags --always --abbrev=0 | sed 's/^v//'
     env:
       CGO_ENABLED: 1
       GOOS: windows
-      GOARCH: amd64
+      GOARCH: '{{.GOARCH}}'
 
   generate:icons:
     summary: Generates Windows '.ico'
@@ -35,12 +38,32 @@ tasks:
     cmds:
       - wails3 generate icons -input appicon.png -windowsfilename windows/icon.ico
 
+  inject:version:
+    summary: Injects current git version in metafiles
+    internal: true
+    dir: build
+    cmds:
+      - sed -i "s/'{{`{{.VERSION}}`}}'/{{.VERSION}}/g" ./windows/exe.manifest
+      - sed -i "s/'{{`{{.VERSION}}`}}'/{{.VERSION}}/g" ./windows/info.json
+    vars:
+      VERSION:
+        sh: git describe --tags --always --abbrev=0 | sed 's/^v//'
+
+  restore:version:
+    desc: Restores the metafiles with placeholders
+    internal: true
+    dir: build
+    cmds:
+      - git checkout ./windows/exe.manifest
+      - git checkout ./windows/info.json
+
   generate:syso:
     summary: Generates Windows `.syso` file
     internal: true
     dir: build
     deps:
       - task: generate:icons
+      - task: inject:version
     sources:
       - "windows/icon.ico"
       - "windows/exe.manifest"
@@ -48,6 +71,7 @@ tasks:
     generates:
       - "../wails_windows_{{.GOARCH}}.syso"
     cmds:
+      - defer: { task: restore:version }
       - wails3 generate syso -arch {{.GOARCH}} -icon windows/icon.ico -manifest windows/exe.manifest -info windows/info.json -out ../wails_windows_{{.GOARCH}}.syso
     vars:
       GOARCH: amd64
@@ -55,5 +79,5 @@ tasks:
   run:
     summary: Runs the application
     cmds:
-      - cmd: Start-Process -FilePath ./build/bin/waifetch.exe
-        platforms: [windows]
+      - platforms: [windows]
+        cmd: Start-Process -FilePath ./build/bin/waifetch.exe

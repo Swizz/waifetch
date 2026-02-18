@@ -15,13 +15,16 @@ tasks:
           DEV:
             ref: .DEV
     cmds:
-      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch.bin'
+      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch-{{.VERSION}}-{{.GOARCH}}.bin'
     vars:
       BUILD_FLAGS: '{{if eq .DEV "true"}}-buildvcs=false -gcflags=all="-l"{{else}}-tags production -trimpath -buildvcs=false -ldflags="-w -s"{{end}}'
+      GOARCH: amd64
+      VERSION:
+        sh: git describe --tags --always --abbrev=0 | sed 's/^v//'
     env:
       CGO_ENABLED: 1
       GOOS: linux
-      GOARCH: amd64
+      GOARCH: '{{.GOARCH}}'
 
   run:
     summary: Runs the application

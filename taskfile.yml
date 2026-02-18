@@ -21,10 +21,10 @@ tasks:
     cmds:
       - wails3 dev -config ./build/wails.yml -port 3000
 
-  clear:
-    summary: Clear the bin folder
+  clean:
+    summary: Clears the bin folder
     cmds:
-      - cmd: rm ./build/bin/*
-        platforms: [linux]
-      - cmd: Remove-Item -path ./build/bin/*
-        platforms: [windows]
+      - platforms: [linux]
+        cmd: rm ./build/bin/*
+      - platforms: [windows]
+        cmd: Remove-Item -path ./build/bin/*
