@@ -1,0 +1,30 @@
+version: '3'
+
+includes:
+  common: ./build/taskfile.yml
+  linux: ./build/linux/taskfile.yml
+  windows: ./build/windows/taskfile.yml
+
+tasks:
+  build:
+    summary: Builds the application
+    cmds:
+      - task: "{{OS}}:build"
+
+  run:
+    summary: Runs the application
+    cmds:
+      - task: "{{OS}}:run"
+
+  dev:
+    summary: Runs the application in development mode
+    cmds:
+      - wails3 dev -config ./build/wails.yml -port 3000
+
+  clear:
+    summary: Clear the bin folder
+    cmds:
+      - cmd: rm ./build/bin/*
+        platforms: [linux]
+      - cmd: Remove-Item -path ./build/bin/*
+        platforms: [windows]

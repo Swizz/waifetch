@@ -1,0 +1,24 @@
+version: '3'
+
+dev_mode:
+  root_path: .
+  ignore:
+    dir:
+      - .git
+      - frontend
+      - bin
+    file:
+      - .gitignore
+      - .gitkeep
+    watched_extension:
+      - "*.go"
+      - "*.js"
+      - "*.ts"
+    git_ignore: true
+  executes:
+    - cmd: wails3 build DEV=true
+      type: blocking
+    - cmd: wails3 task common:dev:frontend
+      type: background
+    - cmd: wails3 task run
+      type: primary

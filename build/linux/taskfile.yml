@@ -1,0 +1,29 @@
+version: '3'
+
+includes:
+  common: ../taskfile.yml
+
+tasks:
+  build:
+    summary: Builds the application using native Go cross-compilation
+    deps:
+      - task: common:go:mod:tidy
+      - task: common:build:frontend
+        vars:
+          BUILD_FLAGS:
+            ref: .BUILD_FLAGS
+          DEV:
+            ref: .DEV
+    cmds:
+      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch.bin'
+    vars:
+      BUILD_FLAGS: '{{if eq .DEV "true"}}-buildvcs=false -gcflags=all="-l"{{else}}-tags production -trimpath -buildvcs=false -ldflags="-w -s"{{end}}'
+    env:
+      CGO_ENABLED: 1
+      GOOS: linux
+      GOARCH: amd64
+
+  run:
+    summary: Runs the application
+    cmds:
+      - ./build/bin/waifetch.bin

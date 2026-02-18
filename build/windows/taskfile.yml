@@ -1,0 +1,59 @@
+version: '3'
+
+includes:
+  common: ../taskfile.yml
+
+tasks:
+  build:
+    summary: Builds the application using native Go cross-compilation
+    deps:
+      - task: common:go:mod:tidy
+      - task: common:build:frontend
+        vars:
+          BUILD_FLAGS:
+            ref: .BUILD_FLAGS
+          DEV:
+            ref: .DEV
+      - task: generate:syso
+    cmds:
+      - go build {{.BUILD_FLAGS}} -o './build/bin/waifetch.exe'
+    vars:
+      BUILD_FLAGS: '{{if eq .DEV "true"}}-buildvcs=false -gcflags=all="-l"{{else}}-tags production -trimpath -buildvcs=false -ldflags="-w -s -H windowsgui"{{end}}'
+    env:
+      CGO_ENABLED: 1
+      GOOS: windows
+      GOARCH: amd64
+
+  generate:icons:
+    summary: Generates Windows '.ico'
+    internal: true
+    dir: build
+    sources:
+      - "appicon.png"
+    generates:
+      - "windows/icon.ico"
+    cmds:
+      - wails3 generate icons -input appicon.png -windowsfilename windows/icon.ico
+
+  generate:syso:
+    summary: Generates Windows `.syso` file
+    internal: true
+    dir: build
+    deps:
+      - task: generate:icons
+    sources:
+      - "windows/icon.ico"
+      - "windows/exe.manifest"
+      - "windows/info.json"
+    generates:
+      - "../wails_windows_{{.GOARCH}}.syso"
+    cmds:
+      - wails3 generate syso -arch {{.GOARCH}} -icon windows/icon.ico -manifest windows/exe.manifest -info windows/info.json -out ../wails_windows_{{.GOARCH}}.syso
+    vars:
+      GOARCH: amd64
+
+  run:
+    summary: Runs the application
+    cmds:
+      - cmd: Start-Process -FilePath ./build/bin/waifetch.exe
+        platforms: [windows]
