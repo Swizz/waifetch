@@ -1,18 +1,8 @@
-import { effect, sprae, store } from "sprae"
-import { GetSystemInfo } from "./wailsjs/go/main/App.js"
+import { sprae, store, batch } from "sprae"
 
-interface SystemData {
-	user: string
-	hostname: string
-	os: string
-	platform: string
-	kernel: string
-	cpu: string
-	uptime: number
-	disk: { used: number; total: number }
-	mem: { used: number; total: number }
-	dark: boolean
-}
+import { GetSystemInfo } from "./bindings/waifetch/systemfetch.ts"
+
+import type { SystemInfo } from "./bindings/waifetch/types.ts"
 
 interface DataFormatter {
 	_fmtUptime(uptime: number): string
@@ -21,7 +11,7 @@ interface DataFormatter {
 	_platformImg(os: string, platform: string, path?: string): string
 }
 
-const emptyState: SystemData = {
+const emptyState: SystemInfo = {
 	user: "",
 	hostname: "",
 	os: "",
@@ -85,12 +75,7 @@ const formatter: DataFormatter = {
 	},
 }
 
-const state: SystemData & DataFormatter = store({ ...emptyState, ...formatter })
-
-effect(() => {
-	GetSystemInfo().then((systemData: SystemData) =>
-		Object.assign(state, systemData)
-	)
-})
+const state: SystemInfo & DataFormatter = store({ ...emptyState, ...formatter })
+batch(async () => Object.assign(state, await GetSystemInfo()))
 
 export default sprae(document.body, state)

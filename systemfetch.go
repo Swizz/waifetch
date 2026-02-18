@@ -1,8 +1,9 @@
 package main
 
 import (
-	"context"
 	"fmt"
+
+	wails "github.com/wailsapp/wails/v3/pkg/application"
 
 	"github.com/shirou/gopsutil/v4/cpu"
 	"github.com/shirou/gopsutil/v4/disk"
@@ -11,6 +12,10 @@ import (
 
 	"github.com/thiagokokada/dark-mode-go"
 )
+
+type SystemFetch struct {
+	app *wails.App
+}
 
 type UsageInfo struct {
 	Used  uint64 `json:"used"`
@@ -30,15 +35,7 @@ type SystemInfo struct {
 	Dark     bool      `json:"dark"`
 }
 
-type App struct {
-	ctx context.Context
-}
-
-func (app *App) startup(ctx context.Context) {
-	app.ctx = ctx
-}
-
-func (app *App) GetSystemInfo() SystemInfo {
+func (_ *SystemFetch) GetSystemInfo() SystemInfo {
 	var err error
 	var system SystemInfo = SystemInfo{}
 

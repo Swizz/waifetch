@@ -1,4 +1,6 @@
+*.syso
+.task/
 build/bin/
-node_modules/
+build/windows/icon.ico
 frontend/dist/
-frontend/wailsjs/
+frontend/bindings/

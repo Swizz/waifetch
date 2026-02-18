@@ -55,7 +55,7 @@ for display. The `frontend/` folder contains the NueJS-based user interface.
 
 2. Run the application:
    ```bash
-   wails dev
+   wails3 task dev
    ```
 
 ## Building

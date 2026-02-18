@@ -3,30 +3,33 @@ package main
 import (
 	"embed"
 
-	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	wails "github.com/wailsapp/wails/v3/pkg/application"
 )
 
 //go:embed all:frontend/dist
 var assets embed.FS
 
 func main() {
-	var app *App = &App{}
+	var app *wails.App
 
-	var err error = wails.Run(&options.App{
-		Title:  "waifetch",
-		Width:  1287,
-		Height: 728,
-		AssetServer: &assetserver.Options{
-			Assets: assets,
+	app = wails.New(wails.Options{
+		Name: "waifetch",
+		Services: []wails.Service{
+			wails.NewService(&SystemFetch{}),
 		},
-		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 0},
-		OnStartup:        app.startup,
-		Bind: []interface{}{
-			app,
+		Assets: wails.AssetOptions{
+			Handler: wails.AssetFileServerFS(assets),
 		},
 	})
+
+	app.Window.NewWithOptions(wails.WebviewWindowOptions{
+		Title:         "waifetch",
+		Width:         1287,
+		Height:        728,
+		DisableResize: true,
+	})
+
+	var err error = app.Run()
 
 	if err != nil {
 		println("Error:", err.Error())
