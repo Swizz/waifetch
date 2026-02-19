@@ -32,7 +32,7 @@ type SystemInfo struct {
 	Uptime   uint64     `json:"uptime,omitempty"`
 	Disk     *UsageInfo `json:"disk,omitempty"`
 	Mem      *UsageInfo `json:"mem,omitempty"`
-	Dark     bool       `json:"dark,omitempty"`
+	Dark     bool       `json:"dark"`
 }
 
 type Event string
