@@ -79,3 +79,5 @@ const state: SystemInfo & DataFormatter = store({ ...emptyState, ...formatter })
 batch(async () => Object.assign(state, await GetSystemInfo()))
 
 export default sprae(document.body, state)
+
+addEventListener('contextmenu', e => e.preventDefault())
