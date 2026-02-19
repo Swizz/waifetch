@@ -29,4 +29,8 @@ tasks:
   run:
     summary: Runs the application
     cmds:
-      - ./build/bin/waifetch.bin
+      - ./build/bin/waifetch-{{.VERSION}}-{{.GOARCH}}.bin
+    vars:
+      GOARCH: amd64
+      VERSION:
+        sh: git describe --tags --always --abbrev=0 | sed 's/^v//'

@@ -80,4 +80,9 @@ tasks:
     summary: Runs the application
     cmds:
       - platforms: [windows]
-        cmd: Start-Process -FilePath ./build/bin/waifetch.exe
+        cmd: Start-Process -FilePath './build/bin/waifetch-{{.VERSION}}-{{.GOARCH}}.exe'
+    vars:
+      GOARCH: amd64
+      VERSION:
+        sh: git describe --tags --always --abbrev=0 | sed 's/^v//'
+
