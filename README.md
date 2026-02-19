@@ -35,16 +35,16 @@
 ## Project Structure
 
 This project is a simple demonstration with a focused aim. The main application
-logic is contained in `app.go`, which collects and formats system information
-for display. The `frontend/` folder contains the NueJS-based user interface.
+logic is contained in `systemfetch.go`, which collects and formats system
+information for display. The `frontend/` folder contains the Sprinkle-based
+application interface.
 
 ## Prerequisites
 
-- Go 1.19 or higher
-- Bun 1.2 or higher (required for NueJS - despite its name, NueJS works only
-  with Bun)
+- Go 1.25 or higher
+- Deno 2.6 or higher
 - Wails CLI (can be installed with
-  `go install github.com/wailsapp/wails/v2/cmd/wails@latest`)
+  `go install github.com/wailsapp/wails/v3/cmd/wails3@latest`)
 
 ### Installation
 
@@ -63,7 +63,7 @@ for display. The `frontend/` folder contains the NueJS-based user interface.
 To build the application for your current platform:
 
 ```bash
-wails build
+wails task build
 ```
 
 For cross-platform builds, see the
