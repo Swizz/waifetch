@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/wailsapp/wails/v3/pkg/application"
 	wails "github.com/wailsapp/wails/v3/pkg/application"
 
 	"github.com/shirou/gopsutil/v4/cpu"
@@ -13,27 +15,31 @@ import (
 	"github.com/thiagokokada/dark-mode-go"
 )
 
-type SystemFetch struct {
-	app *wails.App
-}
+type SystemFetch struct{}
 
 type UsageInfo struct {
-	Used  uint64 `json:"used"`
-	Total uint64 `json:"total"`
+	Used  uint64 `json:"used,omitempty"`
+	Total uint64 `json:"total,omitempty"`
 }
 
 type SystemInfo struct {
-	User     string    `json:"user"`
-	Hostname string    `json:"hostname"`
-	OS       string    `json:"os"`
-	Platform string    `json:"platform"`
-	Kernel   string    `json:"kernel"`
-	Cpu      string    `json:"cpu"`
-	Uptime   uint64    `json:"uptime"`
-	Disk     UsageInfo `json:"disk"`
-	Mem      UsageInfo `json:"mem"`
-	Dark     bool      `json:"dark"`
+	User     string     `json:"user,omitempty"`
+	Hostname string     `json:"hostname,omitempty"`
+	OS       string     `json:"os,omitempty"`
+	Platform string     `json:"platform,omitempty"`
+	Kernel   string     `json:"kernel,omitempty"`
+	Cpu      string     `json:"cpu,omitempty"`
+	Uptime   uint64     `json:"uptime,omitempty"`
+	Disk     *UsageInfo `json:"disk,omitempty"`
+	Mem      *UsageInfo `json:"mem,omitempty"`
+	Dark     bool       `json:"dark,omitempty"`
 }
+
+type Event string
+
+const (
+	SystemInfoUpdate Event = "systeminfo:update"
+)
 
 func (_ *SystemFetch) GetSystemInfo() SystemInfo {
 	var err error
@@ -69,6 +75,7 @@ func (_ *SystemFetch) GetSystemInfo() SystemInfo {
 
 	if err == nil {
 		var partition disk.PartitionStat
+		system.Disk = &UsageInfo{}
 		for _, partition = range partitions {
 			var disku *disk.UsageStat
 			disku, err = disk.Usage(partition.Mountpoint)
@@ -84,8 +91,10 @@ func (_ *SystemFetch) GetSystemInfo() SystemInfo {
 	memory, err = mem.VirtualMemory()
 
 	if err == nil {
-		system.Mem.Total = memory.Total
-		system.Mem.Used = memory.Used
+		system.Mem = &UsageInfo{
+			Total: memory.Total,
+			Used:  memory.Used,
+		}
 	}
 
 	var darkm bool
@@ -96,4 +105,43 @@ func (_ *SystemFetch) GetSystemInfo() SystemInfo {
 	}
 
 	return system
+}
+
+func (_ *SystemFetch) MonitorSystemInfo() Event {
+	var ticker *time.Ticker = time.NewTicker(3 * time.Second)
+	var system SystemInfo = SystemInfo{}
+
+	var app *wails.App = application.Get()
+
+	go func() {
+		defer ticker.Stop()
+
+		for range ticker.C {
+			var err error
+
+			var memory *mem.VirtualMemoryStat
+			memory, err = mem.VirtualMemory()
+			if err == nil {
+				system.Mem = &UsageInfo{
+					Total: memory.Total,
+					Used:  memory.Used,
+				}
+			}
+
+			var darkm bool
+			darkm, err = dark.IsDarkMode()
+
+			if err == nil {
+				system.Dark = darkm
+			}
+
+			app.Event.Emit(string(SystemInfoUpdate), system)
+		}
+	}()
+
+	return SystemInfoUpdate
+}
+
+func init() {
+	application.RegisterEvent[SystemInfo](string(SystemInfoUpdate))
 }

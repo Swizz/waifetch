@@ -1,6 +1,7 @@
+import { Events } from "wailsio/runtime"
 import { sprae, store, batch } from "sprae"
 
-import { GetSystemInfo } from "./bindings/waifetch/systemfetch.ts"
+import { GetSystemInfo, MonitorSystemInfo } from "./bindings/waifetch/systemfetch.ts"
 
 import type { SystemInfo } from "./bindings/waifetch/types.ts"
 
@@ -76,7 +77,13 @@ const formatter: DataFormatter = {
 }
 
 const state: SystemInfo & DataFormatter = store({ ...emptyState, ...formatter })
-batch(async () => Object.assign(state, await GetSystemInfo()))
+
+batch(async () => {
+	Object.assign(state, await GetSystemInfo())
+
+	Events.On(await MonitorSystemInfo(), ({ data }) => { console.log(data); Object.assign(state, data) })
+})
+
 
 export default sprae(document.body, state)
 
