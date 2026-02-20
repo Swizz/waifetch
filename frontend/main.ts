@@ -87,4 +87,8 @@ batch(async () => {
 
 export default sprae(document.body, state)
 
-addEventListener('contextmenu', e => e.preventDefault())
+addEventListener('contextmenu', (event, selection = getSelection()) => {
+	if (!selection || selection.toString().length <= 0) {
+		event.preventDefault()
+	}
+})
