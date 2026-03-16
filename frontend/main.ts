@@ -81,7 +81,7 @@ const state: SystemInfo & DataFormatter = store({ ...emptyState, ...formatter })
 batch(async () => {
 	Object.assign(state, await GetSystemInfo())
 
-	Events.On(await MonitorSystemInfo(), ({ data }) => { console.log(data); Object.assign(state, data) })
+	Events.On(await MonitorSystemInfo(), ({ data }) => { Object.assign(state, data) })
 })
 
 

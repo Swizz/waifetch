@@ -1,10 +1,9 @@
-@import "https://esm.sh/halfmoon@2.0.2/css/halfmoon.css";
-@import "https://esm.sh/halfmoon@2.0.2/css/cores/halfmoon.elegant.css";
+@import "tailwindcss";
 
-*, *:before, *:after {
-	box-sizing: border-box;
+@plugin "daisyui" {
+	themes: light --default, dark --preferdark;
 }
 
 html, body, main {
-	height: 100%;
+	@apply h-full;
 }

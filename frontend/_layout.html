@@ -7,11 +7,6 @@
 		<script type="module" src="./main.js" defer></script>
 		<title>Waifetch</title>
 	</head>
-	<body
-		data-bs-core="elegant"
-		data-bs-theme="dark"
-		:data-bs-theme="dark ? 'dark' : 'light'"
-		::slot
-	>
+	<body class="bg-base-100 text-base-content" :data-theme="dark ? 'dark' : 'light'" ::slot>
 	</body>
 </html>

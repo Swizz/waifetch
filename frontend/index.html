@@ -1,54 +1,60 @@
-<main class="container-fluid gx-5">
-	<div class="row g-5 h-100 align-items-center">
-		<div class="col h-100 bg-body-secondary d-flex justify-content-center">
-			<img
-				class="align-self-center specific-h-500"
-				:src="(os || platform) && _platformImg(os, platform)"
-				:alt="(os || platform) && `${platform} ${os}`"
-			>
+<main class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center pr-10">
+	<div class="flex h-full bg-base-300/45 justify-center items-center">
+		<img
+			class="max-h-[500px] object-contain self-center"
+			:src="(os || platform) && _platformImg(os, platform)"
+			:alt="(os || platform) && `${platform} ${os}`"
+		>
 		</div>
-		<div class="col">
-			<div class="card font-monospace">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">
-						<label class="fw-bolder">User:</label>
-						<span class="text-capitalize" :text="user">{ user }</span>@<span
-							:text="hostname"
-						>{ hostname }</span>
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">OS:</label>
-						<span class="text-capitalize" :text="plateform">{ platform }</span>
-						<span class="text-capitalize" :text="os">{ os }</span>
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">Kernel:</label>
+		<div class="card border border-base-content/20 font-mono">
+			<ul class="list p-0">
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">User:</label>
+					<span>
+						<span class="capitalize" :text="user">{ user }</span>@<span :text="hostname">{ hostname }</span>
+					</span>
+				</li>
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">OS:</label>
+					<span>
+						<span class="capitalize" :text="plateform">{ platform }</span>
+						<span class="capitalize" :text="os">{ os }</span>
+					</span>
+				</li>
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">Kernel:</label>
+					<span>
 						<span :text="kernel">{ kernel }</span>
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">Uptime:</label>
+					</span>
+				</li>
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">Uptime:</label>
+					<span>
 						<span :text="_fmtUptime(uptime)">{ uptime }</span>
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">CPU:</label>
+					</span>
+				</li>
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">CPU:</label>
+					<span>
 						<span :text="cpu">{ cpu }</span>
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">Disk:</label>
-						<span :text="_fmtBytes(disk.used)">{ disk.used }</span>&nbsp;/&nbsp;
-						<span :text="_fmtBytes(disk.total)">{ disk.total }</span> (<span
-							:text="_fmtPercent(disk.used / disk.total)"
-						>{ disk.used / disk.total }</span>)
-					</li>
-					<li class="list-group-item">
-						<label class="fw-bolder">RAM:</label>
-						<span :text="_fmtBytes(mem.used)">{ mem.used }</span>&nbsp;/&nbsp;
-						<span :text="_fmtBytes(mem.total)">{ mem.total }</span> (<span
-							:text="_fmtPercent(mem.used / mem.total)"
-						>{ mem.used / mem.total }</span>)
-					</li>
-				</ul>
-			</div>
+					</span>
+				</li>
+				<li class="list-row border-b border-base-content/20 rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">Disk:</label>
+					<span>
+						<span :text="_fmtBytes(disk.used)">{ disk.used }</span> /
+						<span :text="_fmtBytes(disk.total)">{ disk.total }</span>
+						(<span :text="_fmtPercent(disk.used / disk.total)">{ disk.used / disk.total }</span>)
+					</span>
+				</li>
+				<li class="list-row rounded-none p-3">
+					<label class="list-col-grow font-bold opacity-60">RAM:</label>
+					<span>
+					<span :text="_fmtBytes(mem.used)">{ mem.used }</span> /
+					<span :text="_fmtBytes(mem.total)">{ mem.total }</span>
+					(<span :text="_fmtPercent(mem.used / mem.total)">{ mem.used / mem.total }</span>)
+					</span>
+				</li>
+			</ul>
 		</div>
-	</div>
 </main>

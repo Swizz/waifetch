@@ -27,9 +27,9 @@
 - [`Wails`](https://wails.io/) - Build desktop applications using Go & Web
   Technologies
 - [`Sprinkle`](https://deno.land/x/sprinkle) - Full featured
-  [Spræ](https://dy.github.io/sprae) engine for [Lume](https://lume.land/)
-- [`Halfmoon`](https://gethalfmoon.com) - Highly customizable Bootstrap
-  replacement
+  [Spræ](https://dy.github.io/sprae) engine for [Lume](https://lume.land)
+- [`DaisyUI`](https://daisyui.com) - The most popular
+  [Tailwind CSS](https://tailwindcss.com) component library
 - [`gopsutil`](https://github.com/shirou/gopsutil) - Psutils for Golang
 
 ## Project Structure

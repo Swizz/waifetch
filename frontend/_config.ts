@@ -1,4 +1,7 @@
 import site from "sprinkle/config.ts"
+import tailwind from "lume/plugins/tailwindcss.ts"
+
+site.use(tailwind())
 
 site.add("main.ts")
 
